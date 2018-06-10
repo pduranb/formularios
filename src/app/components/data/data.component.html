@@ -1,0 +1,175 @@
+<h4 class="title is-1"> Formularios <small>Data</small></h4>
+<hr>
+
+<form [formGroup]="forma" (ngSubmit)="guardarCambios()">
+    <div class="columns is-mobile ">
+        <div class="column is-half ">
+            <div formGroupName="nombrecompleto">
+                <div class="field is-horizontal">
+                    <div class="field-label is-normal">
+                        <label class="label">Nombre</label>
+                    </div>
+                    <div class="field-body">
+                        <div class="field">
+                            <div class="control has-icons-right">
+                                <input class="input" type="text" placeholder="Nombre" name="nombre" formControlName="nombre" [ngClass]="{'is-danger': (forma.get('nombrecompleto.nombre').invalid && forma.get('nombrecompleto.nombre').touched) , 'is-success': (!forma.get('nombrecompleto.nombre').invalid && forma.get('nombrecompleto.nombre').touched) }">
+                                <span class="icon has-text-success is-small is-right" *ngIf="(!forma.get('nombrecompleto.nombre').invalid && forma.get('nombrecompleto.nombre').touched)">
+                                <i class="fas fa-check"></i>
+                            </span>
+                                <span class="icon has-text-danger is-small is-right" *ngIf="(forma.get('nombrecompleto.nombre').invalid && forma.get('nombrecompleto.nombre').touched)">
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </span>
+                            </div>
+                            <p class="help is-danger" *ngIf="!!forma.get('nombrecompleto.nombre').errors?.required && forma.get('nombrecompleto.nombre').touched">Este Campo es requerido.</p>
+                            <p class="help is-danger" *ngIf="!!forma.get('nombrecompleto.nombre').errors?.minlength && forma.get('nombrecompleto.nombre').touched">Por lo menos caracteres.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field is-horizontal">
+                    <div class="field-label is-normal">
+                        <label class="label">Apellido</label>
+                    </div>
+                    <div class="field-body">
+                        <div class="field">
+                            <div class="control has-icons-right">
+                                <input class="input" type="text" placeholder="Apellido" name="apellido" formControlName="apellido">
+                                <span class="icon has-text-success is-small is-right">
+                                <i class="fas fa-check"></i>
+                            </span>
+                                <span class="icon has-text-danger is-small is-right">
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </span>
+                            </div>
+                            <p class="help is-danger">Este Campo es requerido.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+
+                    <label class="label">Email</label>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control has-icons-right">
+                            <input class="input" type="text" placeholder="Correo electronico" name="correo" formControlName="correo">
+                            <span class="icon has-text-success is-small is-right">
+                                <i class="fas fa-check"></i>
+                            </span>
+                            <span class="icon has-text-danger is-small is-right">
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </span>
+                        </div>
+                        <p class="help is-danger">Este Campo es requerido.</p>
+                        <p class="help is-danger">EL campo no tiene el formato requerido para un Correo.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <label class="label">Pasatiempo</label>
+                </div>
+                <div class="field-body">
+                    <div class="field is-grouped  is-grouped-multiline" formArrayName="pasatiempos">
+                        <div class="control is-expanded has-icons-right" *ngFor="let pasatiempo of forma.controls['pasatiempos'].controls; let i = index">
+                            <input class="input" type="text" placeholder="Pasatiempo" [formControlName]="i">
+                        </div>
+
+                        <p class="help is-danger">Este Campo es requerido.</p>
+
+                    </div>
+                    <p class="control">
+                        <a type="button" (click)="agregarPasatiempo()" class="button is-primary">Agregar</a>
+                    </p>
+                </div>
+            </div>
+
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+
+                    <label class="label">Username</label>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control has-icons-right">
+                            <input class="input" type="text" placeholder="Username" name="username" formControlName="username">
+                            <span class="icon has-text-success is-small is-right">
+                                <i class="fas fa-check"></i>
+                            </span>
+                            <span class="icon has-text-danger is-small is-right">
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </span>
+                        </div>
+                        <p class="help is-danger">Este Campo es requerido.</p>
+                        <p class="help is-danger">EL campo no tiene el formato requerido para un Correo.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+
+                    <label class="label">Password</label>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control has-icons-right">
+                            <input class="input" type="password" placeholder="Ingrese Password" name="password" formControlName="password1">
+                            <span class="icon has-text-success is-small is-right">
+                                <i class="fas fa-check"></i>
+                            </span>
+                            <span class="icon has-text-danger is-small is-right">
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </span>
+                        </div>
+                        <p class="help is-danger">Este Campo es requerido.</p>
+                        <p class="help is-danger">EL campo no tiene el formato requerido para un Correo.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+
+                    <label class="label">Repetir Password"</label>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control has-icons-right">
+                            <input class="input" type="password" placeholder="Repetir Password" name="password" formControlName="password2">
+                            <span class="icon has-text-success is-small is-right">
+                                <i class="fas fa-check"></i>
+                            </span>
+                            <span class="icon has-text-danger is-small is-right">
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </span>
+                        </div>
+                        <p class="help is-danger">Este Campo es requerido.</p>
+                        <p class="help is-danger">EL campo no tiene el formato requerido para un Correo.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="field is-horizontal">
+                <div class="field-label">
+                    <!-- Left empty for spacing -->
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control">
+                            <button type="submit" class="button is-primary">
+                            Guardar
+                          </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{forma.valid}}
+            <br> {{forma.status}}
+
+        </div>
+    </div>
+</form>

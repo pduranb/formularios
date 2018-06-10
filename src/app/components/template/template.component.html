@@ -1,0 +1,139 @@
+<h4 class="title is-1"> Formularios <small>template</small></h4>
+<hr>
+
+<form (ngSubmit)="guardar(forma)" #forma="ngForm" novalidate="">
+    <div class="columns is-mobile ">
+        <div class="column is-half ">
+
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <label class="label">Nombre</label>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control has-icons-right">
+                            <input class="input" type="text" placeholder="Nombre" name="nombre" [ngClass]="{'is-danger': (nombre.invalid && nombre.touched) , 'is-success': (!nombre.invalid && nombre.touched) }" [(ngModel)]="usuario.nombre" required minlength="5" #nombre="ngModel">
+                            <span class="icon has-text-success is-small is-right" *ngIf="(!nombre.invalid && nombre.touched)">
+                                <i class="fas fa-check"></i>
+                            </span>
+                            <span class="icon has-text-danger is-small is-right" *ngIf="(nombre.invalid && nombre.touched)">
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </span>
+                        </div>
+                        <p class="help is-danger" *ngIf="nombre?.errors?.required && nombre.touched">Este Campo es requerido.</p>
+                        <p class="help is-danger" *ngIf="nombre?.errors?.minlength && nombre.touched">Por lo menos {{nombre?.errors?.minlength.requiredLength}} caracteres.</p>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <label class="label">Apellido</label>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control has-icons-right">
+                            <input class="input" type="text" placeholder="Apellido" name="apellido" [ngClass]="{'is-danger': (apellido.invalid && apellido.touched) , 'is-success': (!apellido.invalid && apellido.touched) }" [(ngModel)]="usuario.apellido" required #apellido="ngModel">
+                            <span class="icon has-text-success is-small is-right" *ngIf="(!apellido.invalid && apellido.touched)">
+                                <i class="fas fa-check"></i>
+                            </span>
+                            <span class="icon has-text-danger is-small is-right" *ngIf="(apellido.invalid && apellido.touched)">
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </span>
+                        </div>
+                        <p class="help is-danger" *ngIf="apellido?.errors?.required && apellido.touched">Este Campo es requerido.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+
+                    <label class="label">Email</label>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control has-icons-right">
+                            <input class="input" type="text" placeholder="Correo electronico" name="correo" [ngClass]="{'is-danger': (correo.invalid && correo.touched) , 'is-success': (!correo.invalid && correo.touched) }" [(ngModel)]="usuario.correo" required #correo="ngModel"
+                                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
+                            <span class="icon has-text-success is-small is-right" *ngIf="(!correo.invalid && correo.touched)">
+                                <i class="fas fa-check"></i>
+                            </span>
+                            <span class="icon has-text-danger is-small is-right" *ngIf="(correo.invalid && correo.touched)">
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </span>
+                        </div>
+                        <p class="help is-danger" *ngIf="correo?.errors?.required && correo.touched">Este Campo es requerido.</p>
+                        <p class="help is-danger" *ngIf="correo?.errors?.pattern && correo.touched">EL campo no tiene el formato requerido para un Correo.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <label class="label">Pais</label>
+                </div>
+                <div class="field-body">
+                    <div class="field ">
+                        <div class="control is-expanded has-icons-left">
+                            <div class="select is-fullwidth" [ngClass]="{'is-danger': (pais?.value == '' && pais.touched) , 'is-success': (!(pais?.value == '') && pais.touched) }">
+                                <select [(ngModel)]="usuario.pais" name="pais" #pais="ngModel">
+                              <option value="">Seleccione un pais</option>
+                              <option [value]="pais.codigo" *ngFor="let pais of paises">{{pais.nombre}}</option>
+                            </select>
+                            </div>
+                            <div class="icon is-small is-left">
+                                <i class="fas fa-globe"></i>
+                            </div>
+                        </div>
+                        <p class="help is-danger" *ngIf=" pais?.value == ''  && pais.touched">Este Campo es requerido.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <label class="label">Sexo</label>
+                </div>
+                <div class="field-body">
+                    <div class="field is-narrow">
+                        <div class="control">
+                            <label class="radio" *ngFor="let sexo of sexos">
+                            <input type="radio" name="sexo" [(ngModel)]="usuario.sexo" [value]="sexo">
+                                {{sexo}}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <label class="label">Aceptar</label>
+                </div>
+                <div class="field-body">
+                    <div class="field is-narrow">
+                        <div class="control">
+                            <label class="checkbox">
+                            <input type="checkbox" name="acepta" [(ngModel)]="usuario.acepta" required>
+                            Acepta las condiciones.
+                          </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="field is-horizontal">
+                <div class="field-label">
+                    <!-- Left empty for spacing -->
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control">
+                            <button type="submit" class="button is-primary" [disabled]="forma.invalid">
+                            Guardar
+                          </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
